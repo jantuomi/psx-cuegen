@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INFILE=$1
+INFILE="$1"
 
 if [ -z "$INFILE" ]; then
     echo "USAGE: psx-cuegen BINFILE"
@@ -12,14 +12,15 @@ if [[ $INFILE != *.bin ]]; then
     exit 1
 fi
 
-INPATH=$(readlink -f $INFILE)
+echo "psx-cuegen - Copyright Jan Tuomi 2016"
+echo "Input file: $INFILE"
 
 CUEFILE="$(basename "$INFILE" .bin).cue"
-OUTPATH=$(readlink -f $CUEFILE)
+echo "Cue file to be generated: $CUEFILE"
 
-BINBASENAME="$(basename $OUTPATH)"
-echo "FILE \"$BINBASENAME\" BINARY" > $OUTPATH
-echo "  TRACK 01 MODE2/2352" >> $OUTPATH
-echo "    INDEX 01 00:00:00" >> $OUTPATH
+BINBASENAME="$(basename "$CUEFILE")"
+echo "FILE \"$BINBASENAME\" BINARY" > "$CUEFILE"
+echo "  TRACK 01 MODE2/2352" >> "$CUEFILE"
+echo "    INDEX 01 00:00:00" >> "$CUEFILE"
 
-echo "Cue file created successfully at '$OUTPATH'."
+echo "Cue file created successfully at '$CUEFILE'."
